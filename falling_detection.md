@@ -18,7 +18,7 @@ In this research, the research question is: Can we develop an embedded AI applic
 ## Application Overview
 In order to make a falling posture detection application with mobile sensors, following building blocks are considered in this project: data acquisition, edge impulse design, model training, evaluation, and testing. The Flow chart of this project shown at below.
 
-![Flow chart](./plots/flow.png)
+![Flow chart](./flow.png)
 
 In this research, the system is designed to identify five types of motion postures: walking, jumping, sitting down, falling, and idle. Motion gesture dataset will be collected through Edge Impulse platform, and then feature extraction process will be conducted. Among various feature extraction methods such as flatten, image, audio, in falling detection analysis, spectral analysis is conducted in feature processing block. Since it is great for analyzing repetitive motion, such as data from accelerometers, which extracts the frequency and power characteristics of a signal over time. Then neural network learning block will be used, which learns to distinguish between these five types of motion gestures by taking these spectral features. The classification model performance is evaluated by loss and accuracy on training and validation dataset. Hyperparameters are tuned according to model performance on validation dataset.
 
@@ -36,19 +36,19 @@ In neural network training session, various neural network architectures are com
 
 In terms of spectral feature extraction session, it appears that low-pass filter keeps more general features than high-pass filter. When cut-off frequency is 3 and order is 6, the digital signal processing result performs best, since the result have the most similar features for similar raw data. The digital signal processing result of the dataset is shown in a three-dimensional space at below, which provide the insight of feature distributions of various motion categories.
 
-![Pic1](./plots/pic1.png)
+![Pic1](./pic1.png)
 
 Regarding to neural network training session, I initialise the model with two hidden layers with 20, 10 nodes respectively. The accuracy and loss on validation sets is 83.9% and 0.39 as we can see at below.
 
-![Pic2](./plots/pic2.png)
+![Pic2](./pic2.png)
 
 Noticing that in the confusion matrix falling motion category accuracy is 0, which might because the feature of falling category is not obvious, and it might be similar to walking category. Therefore, filter type is changed to high-pass filter back in feature extraction session, to extract more detail information for model training, and the feature distribution using high-pass filter shows at below.
 
-![Pic3](./plots/pic3.png)
+![Pic3](./pic3.png)
 
 The corresponding classification result shows at below. Although the accuracy on validation set is decreased to 69.8%, the falling motion category accuracy is 100%.
 
-![Pic4](./plots/pic4.png)
+![Pic4](./pic4.png)
 
 Regarding to neural network architectures, convolutional neural networks are aborted, since the data input is simple, with only 33 features in one-dimensional list. Therefore, dense layers and dropout layers are modified and compared in this research. Various dense layer with various number of nodes, and dropout layer are compared. The result at below illustrates that complicated neural networks have relatively good performance.
 
